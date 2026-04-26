@@ -11,13 +11,25 @@ For a detailed walkthrough of the parameters, architecture logic, and ablation r
 ---
 
 ## 🚀 Overview
-This repository implements a time-series forecasting pipeline using **PyTorch**. The project evaluates four distinct models on two datasets (AirPassengers and Electric Production) to determine how well they capture trends and seasonality.
+This repository implements a time-series forecasting pipeline using **PyTorch**. The project evaluates four distinct models on two datasets to determine how well they capture trends and seasonality.
 
 ### 🧠 Architectures
 - **MLP:** Baseline multi-layer perceptron.
 - **Custom GRU:** A from-scratch implementation of Gated Recurrent Units using the update and reset gate equations.
 - **LSTM:** Long Short-Term Memory network utilizing `nn.LSTM`.
 - **Transformer:** A modern attention-based approach using `nn.TransformerEncoder`.
+
+---
+
+## 📅 Datasets Used
+The models are trained and validated on the following time-series data:
+
+1. **AirPassengers Dataset:** - **Source:** [Brownlee GitHub Repo](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv)
+   - **Description:** Contains the monthly totals of international airline passengers from 1949 to 1960. It is a classic dataset for testing trend and seasonality handling.
+
+2. **Electric Production Dataset:**
+   - **Source:** `Electric_Production.csv` (Time-series data representing industrial electricity consumption).
+   - **Description:** A more complex, high-frequency dataset that tests the model's ability to handle fluctuations and noise.
 
 ---
 
@@ -28,7 +40,7 @@ The model configuration is uniquely derived from a student **Roll Number (102317
 | :--- | :--- | :--- |
 | **Window Size** | `(sum(digits) % 10) + 8` | **14** |
 | **Prediction Horizon** | `(roll[-2:] % 3) + 1` | **2** |
-| **Hidden Size** | `(roll[:3] % 16) + 8` | **14** |
+| **Hidden Size** | `(first_three_digits % 16) + 8` | **14** |
 
 ---
 
@@ -42,7 +54,7 @@ The model configuration is uniquely derived from a student **Roll Number (102317
 
 ## 📈 Key Observations
 - **Sequence Memory:** The Custom GRU and LSTM consistently outperform the MLP by maintaining a hidden state that captures temporal dependencies.
-- **Window Impact:** The ablation study highlights that a window size that is too small leads to underfitting, whereas a window too large can introduce noise, as seen in the Electricity dataset.
+- **Window Impact:** The ablation study highlights that a window size that is too small leads to underfitting, whereas a window too large can introduce noise.
 - **Error Trends:** Models tend to struggle with extreme peak values in the electricity data, likely due to the MSE loss function favoring "safer" mean-centric predictions.
 
 ---
