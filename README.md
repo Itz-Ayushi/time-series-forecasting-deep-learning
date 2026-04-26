@@ -27,8 +27,8 @@ The model configuration is uniquely derived from a student **Roll Number (102317
 | Parameter | Formula | Calculated Value |
 | :--- | :--- | :--- |
 | **Window Size** | `(sum(digits) % 10) + 8` | **14** |
-| **Prediction Horizon** | `(roll[-2:] % 3) + 1` | **1** |
-| **Hidden Size** | `(roll[:3] % 16) + 8` | **13** |
+| **Prediction Horizon** | `(roll[-2:] % 3) + 1` | **2** |
+| **Hidden Size** | `(roll[:3] % 16) + 8` | **14** |
 
 ---
 
